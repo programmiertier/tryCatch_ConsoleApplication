@@ -29,28 +29,46 @@ namespace tryCatch_ConsoleApplication
 
     class Program
     {
-        
+
+        static public string sagtGerade()
+        {
+            return "gerade";
+        }
+
+        static public int sagZwei()
+        {
+            return 2;
+        }
+
+
+
         public static void testen(Kalender k)
         {
             int zahl;
             Write("Bitte geben sie einen Monat ein:\t");
-            int.TryParse(ReadLine(), out zahl);
-            try
+            if (int.TryParse(ReadLine(), out zahl))
             {
-                WriteLine(k.monat[zahl]);     // keine Meldung vom Compiler      // maximal 0 1 2 3 4, 5 nicht mehr enthalten
+                try
+                {
+                    WriteLine(k.monat[zahl]);     // keine Meldung vom Compiler      // maximal 0 1 2 3 4, 5 nicht mehr enthalten
+                }
+                catch (Exception e)
+                {
+                    WriteLine("Es ist etwas schief gegangen");
+                    // WriteLine(e.ToString());
+                    // WriteLine(e.Data);
+                    WriteLine(e.GetType());
+                    // WriteLine(e.GetType().BaseType);
+                    WriteLine(e.Message);
+                    WriteLine("Der Maximal Index darf {0} nicht übersteigen", k.monat.Count() - 1);       // -1! maximalIndex immer eins kleiner
+                    WriteLine(e.Source);
+                    WriteLine(e.TargetSite);
+                    WriteLine();
+                }
             }
-            catch (Exception e)
+            else
             {
-                WriteLine("Es ist etwas schief gegangen");
-                // WriteLine(e.ToString());
-                // WriteLine(e.Data);
-                WriteLine(e.GetType());
-                // WriteLine(e.GetType().BaseType);
-                WriteLine(e.Message);
-                WriteLine("Der Maximal Index darf {0} nicht übersteigen", k.monat.Count() - 1);       // -1! maximalIndex immer eins kleiner
-                WriteLine(e.Source);
-                WriteLine(e.TargetSite);
-                WriteLine();
+                WriteLine("Das ist keine Zahl");
             }
         }
 
@@ -63,8 +81,18 @@ namespace tryCatch_ConsoleApplication
             // testen(abject);
 
             Kalender meinerTermine = new Kalender();
-
             testen(meinerTermine);
+            ReadLine();
+            int zahl = 2;
+
+            if(zahl%2 == 0)
+            {
+                WriteLine("Zahl ist gerade");
+            }
+            else
+            {
+                WriteLine("Zahl ist ungerade");
+            }
 
             ReadLine();
         }
