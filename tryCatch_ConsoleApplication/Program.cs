@@ -22,7 +22,16 @@ namespace tryCatch_ConsoleApplication
 
             WriteLine(abject.zahl);
             WriteLine(abject.kette);
+            try
+            {
+                WriteLine(abject.zahlen[5]);     // keine Meldung vom Compiler
+            }
+            catch (Exception)
+            {
+                WriteLine("Ein solches Element gibt es nicht");
+            }
 
+            ReadLine();
         }
     }
 }
