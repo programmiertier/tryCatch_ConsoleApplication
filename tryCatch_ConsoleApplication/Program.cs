@@ -16,14 +16,29 @@ namespace tryCatch_ConsoleApplication
 
     public class Kalender
     {
-        public int[] monat = new int[13];
+       
+        public int[] monat; // = new int[13];
         public Kalender()
         {
-            monat[0] = -1;
-            for (int zaehl = 1; zaehl <= 12; zaehl++)
+            try
             {
-                monat[zaehl] = zaehl;
+                monat[0] = -1;
+                for (int zaehl = 1; zaehl <= 12; zaehl++)
+                {
+                    monat[zaehl] = zaehl;
+                }
             }
+
+            catch(NullReferenceException nre)
+            {
+                WriteLine("Da wurde wohl was vergessen: = new int[13];");
+            }
+            catch(IndexOutOfRangeException iore)       // speziell, immer vor allgemein!
+            {
+                WriteLine("Durch den IndexOutOfRange abgefangen");
+                WriteLine(iore.ToString());
+            }
+            
         }
     }
 
@@ -52,9 +67,14 @@ namespace tryCatch_ConsoleApplication
                 {
                     WriteLine(k.monat[zahl]);     // keine Meldung vom Compiler      // maximal 0 1 2 3 4, 5 nicht mehr enthalten
                 }
-                catch (Exception e)
+                catch (IndexOutOfRangeException iore)       // speziell, immer vor allgemein!
                 {
-                    WriteLine("Es ist etwas schief gegangen");
+                    WriteLine("Durch den IndexOutOfRange abgefangen");
+                    WriteLine(iore.ToString());
+                }
+                catch (Exception e)                 // muss immer zuletzt genannt werden, weil allgemein
+                {
+                    WriteLine("Im Kalenderkonstruktro ist etwas schief gegangen");
                     // WriteLine(e.ToString());
                     // WriteLine(e.Data);
                     WriteLine(e.GetType());
@@ -62,7 +82,7 @@ namespace tryCatch_ConsoleApplication
                     WriteLine(e.Message);
                     WriteLine("Der Maximal Index darf {0} nicht übersteigen", k.monat.Count() - 1);       // -1! maximalIndex immer eins kleiner
                     WriteLine(e.Source);
-                    WriteLine(e.TargetSite);
+                    // WriteLine(e.TargetSite);
                     WriteLine();
                 }
             }
@@ -83,7 +103,7 @@ namespace tryCatch_ConsoleApplication
             Kalender meinerTermine = new Kalender();
             testen(meinerTermine);
             ReadLine();
-            int zahl = 2;
+            /* int zahl = 2;
 
             if(zahl%2 == 0)
             {
@@ -92,7 +112,7 @@ namespace tryCatch_ConsoleApplication
             else
             {
                 WriteLine("Zahl ist ungerade");
-            }
+            }   */
 
             ReadLine();
         }
