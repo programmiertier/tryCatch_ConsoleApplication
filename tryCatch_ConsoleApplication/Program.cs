@@ -16,15 +16,18 @@ namespace tryCatch_ConsoleApplication
 
     public class Kalender
     {
-       
-        public int[] monat; // = new int[13];
+        public int[] monat = new int[13];
         public Kalender()
         {
             try
             {
                 monat[0] = -1;
-                for (int zaehl = 1; zaehl <= 12; zaehl++)
+                for (int zaehl = 1; zaehl <= 15; zaehl++)
                 {
+                    if (zaehl > monat.Count() -1)
+                    {
+                        throw new Exception("Der Laufindex der for Schleife war zu groß");      // kann beliebige Exceptions erfinden
+                    }
                     monat[zaehl] = zaehl;
                 }
             }
@@ -100,8 +103,8 @@ namespace tryCatch_ConsoleApplication
 
             // testen(abject);
 
-            Kalender meinerTermine = new Kalender();
-            testen(meinerTermine);
+            Kalender meineTermine = new Kalender();
+            testen(meineTermine);
             ReadLine();
             /* int zahl = 2;
 
